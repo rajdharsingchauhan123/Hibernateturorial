@@ -11,8 +11,10 @@ public class Employee {
 
     }
 
-    public Employee(String emp) {
+    public Employee(String emp, Boss bossId) {
+        super();
         this.emp = emp;
+        this.boss = bossId;
     }
 
     @Id
@@ -22,6 +24,10 @@ public class Employee {
 
     @Column(name = "employee")
     private String emp;
+
+    @ManyToOne(targetEntity = Boss.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "boss_id", referencedColumnName = "bid")
+    private Boss boss;
 
     public Long getId() {
         return id;
@@ -39,8 +45,17 @@ public class Employee {
         this.emp = emp;
     }
 
+    public Boss getBoss() {
+        return boss;
+    }
+
+    public void setBoss(Boss boss) {
+        this.boss = boss;
+    }
+
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", emp=" + emp + "]";
+        return "Employee [id=" + id + ", emp=" + emp + ", boss=" + boss + "]";
     }
+
 }

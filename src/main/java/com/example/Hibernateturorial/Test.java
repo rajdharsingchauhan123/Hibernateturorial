@@ -77,19 +77,16 @@ public class Test {
         Transaction txn = null;
 
         try {
+            Boss boss = new Boss("Sundar",45);
+
+            Employee emp1 = new Employee("John",boss);
+            Employee emp2 = new Employee("Rohit",boss);
+
             session = getSession();
             txn = session.beginTransaction();
 
-            Employee emp1 = new Employee("raj");
-            Employee emp2 = new Employee("Rohit");
-
-            Set<Employee> employees = new HashSet<>();
-            employees.add(emp1);
-            employees.add(emp2);
-
-            Boss boss = new Boss("Sundar",45,employees);
-
-            session.save(boss);
+            session.save(emp1);
+            session.save(emp2);
 
             txn.commit();
 

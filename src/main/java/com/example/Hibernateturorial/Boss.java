@@ -24,10 +24,10 @@ public class Boss implements Serializable {
 
     }
 
-    public Boss(String name, int age, Set<Employee> employees) {
+    public Boss(String name, int age) {
+        super();
         this.name = name;
         this.age = age;
-        this.employees = employees;
     }
 
     @Id
@@ -41,9 +41,6 @@ public class Boss implements Serializable {
     @Column(name = "age")
     private int age;
 
-    @OneToMany(targetEntity = Employee.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "boss_id", referencedColumnName = "bid")
-    private Set<Employee> employees;
 
     public Long getId() {
         return id;
@@ -69,17 +66,10 @@ public class Boss implements Serializable {
         this.age = age;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
-
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", employees=" + employees + "]";
+        return "Boss [id=" + id + ", name=" + name + ", age=" + age + "]";
     }
+
 
 }
