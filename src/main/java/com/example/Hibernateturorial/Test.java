@@ -8,6 +8,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Test {
 //    public static void main(String[] args) {
 //        SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
@@ -36,7 +39,12 @@ public class Test {
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.addAnnotatedClass(com.example.Hibernateturorial.Employee.class);
-        configuration.addAnnotatedClass(com.example.Hibernateturorial.Contact.class);
+        // using one to one
+//        configuration.addAnnotatedClass(com.example.Hibernateturorial.Contact.class);
+
+        // many to many mapping
+        configuration.addAnnotatedClass(com.example.Hibernateturorial.Boss.class);
+
         ServiceRegistry srvcReg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties())
                 .build();
         sessionFactory = configuration.buildSessionFactory(srvcReg);
@@ -57,13 +65,13 @@ public class Test {
 
     public static void main(String[] args) {
 
-        insertEmployeeWithContact();
+//        insertEmployeeWithContact();
+        insert();
 
 //        deleteEmployeeWithContact();
 
     }
-
-    public static void insertEmployeeWithContact() {
+    public static void insert() {
 
         Session session = null;
         Transaction txn = null;
@@ -72,11 +80,16 @@ public class Test {
             session = getSession();
             txn = session.beginTransaction();
 
-            Employee emp = new Employee("Sundar", "5");
+            Employee emp1 = new Employee("raj");
+            Employee emp2 = new Employee("Rohit");
 
-            Contact contact = new Contact("9898984848", "someemail@company.com", emp);
+            Set<Employee> employees = new HashSet<>();
+            employees.add(emp1);
+            employees.add(emp2);
 
-            session.save(contact);
+            Boss boss = new Boss("Sundar",45,employees);
+
+            session.save(boss);
 
             txn.commit();
 
@@ -88,6 +101,34 @@ public class Test {
             session.close();
         }
     }
+
+    // one to one mapping
+
+//    public static void insertEmployeeWithContact() {
+//
+//        Session session = null;
+//        Transaction txn = null;
+//
+//        try {
+//            session = getSession();
+//            txn = session.beginTransaction();
+//
+////            Employee emp = new Employee("Sundar", "5");
+//
+////            Contact contact = new Contact("9898984848", "someemail@company.com", emp);
+//
+////            session.save(contact);
+//
+//            txn.commit();
+//
+//        } catch (Exception e) {
+//            if (txn != null)
+//                txn.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//    }
 
 //    public static void deleteEmployeeWithContact() {
 //
@@ -114,6 +155,7 @@ public class Test {
 //            session.close();
 //        }
     }
+
 
 //}
 

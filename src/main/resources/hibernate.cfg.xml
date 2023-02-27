@@ -23,6 +23,9 @@
 
 <!--        <mapping resource="Employee.hbm.xml"></mapping>-->
         <mapping resource="com.example.Hibernateturorial.Employee"></mapping>
-        <mapping resource="com.example.Hibernateturorial.Contact"></mapping>
+<!--        <mapping resource="com.example.Hibernateturorial.Contact"></mapping>-->
+        <mapping resource="com.example.Hibernateturorial.Boss"></mapping>
+
+
     </session-factory>
 </hibernate-configuration>
