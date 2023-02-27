@@ -8,7 +8,7 @@
             <generator class="identity"/>
         </id>
         <property name="name" column="name" type="string"/>
-        <property name="age" column="age" type="int"/>
+        <property name="age" column="age" type="string"/>
 
     </class>
 </hibernate-mapping>

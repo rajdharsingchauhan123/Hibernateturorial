@@ -1,19 +1,27 @@
 package com.example.Hibernateturorial;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
-//@Entity
+@Entity
+
+@Table(name = "employee")
 public class Employee implements Serializable {
+
+    @Id
+    @Column(name = "eid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+    @Column(name = "ename",length = 10)
     private String name;
+    @Column(name = "age")
     private String age;
 
     public Employee() {
     }
 
-    public Employee(Long id, String name, String age) {
-        this.id = id;
+    public Employee( String name, String age) {
+
         this.name = name;
         this.age = age;
     }
